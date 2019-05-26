@@ -2,6 +2,7 @@ OS=$1;
 CANVAS_PREBUILT_VERSION=$2;
 CANVAS_VERSION_TO_BUILD=$3;
 NODEJS_VERSIONS=$4
+ELECTRON_VERSIONS=$5
 
 if [ "$CANVAS_VERSION_TO_BUILD" = "" ]; then
   echo "Can't do anything since you didn't specify which version we're building!";
@@ -40,6 +41,29 @@ for ver in $NODEJS_VERSIONS; do
 
   node-gyp rebuild || {
     echo "error building in nodejs version $ver"
+    exit 1;
+  }
+
+  cd ..
+
+  source ci/$OS/bundle.sh;
+
+  node -e "require('./node-canvas')" || {
+    echo "error loading binary";
+    exit 1;
+  }
+
+  source ci/tarball.sh $CANVAS_PREBUILT_VERSION;
+done;
+for ver in $ELECTRON_VERSIONS; do
+  echo "------------ Building with ELECTRON $ver ------------"
+
+  source ci/$OS/node_version.sh $ver;
+
+  cd node-canvas
+
+  electron-rebuild --version $ver || {
+    echo "error building in electron version $ver"
     exit 1;
   }
 
