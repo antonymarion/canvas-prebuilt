@@ -19,14 +19,14 @@
     "test": "echo No test needed"
   },
   "binary": {
-    "module_name": "canvas-prebuilt",
+    "module_name": "canvas",
     "module_path": "canvas/build/Release",
-    "host": "https://github.com/chearon/node-canvas-prebuilt/releases/download/",
+    "host": "https://github.com/antonymarion/canvas-prebuilt/releases/download/",
     "remote_path": "v{version}",
     "package_name": "{module_name}-v{version}-{node_abi}-{platform}-{libc}-{arch}.tar.gz"
   },
-  "homepage": "https://github.com/chearon/node-canvas-prebuilt",
-  "repository": "git://github.com/chearon/node-canvas-prebuilt.git",
+  "homepage": "https://github.com/antonymarion/canvas-prebuilt",
+  "repository": "git://github.com/antonymarion/canvas-prebuilt.git",
   "main": "./canvas/index.js",
   "license": "MIT",
   "dependencies": {
